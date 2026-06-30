@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.ImageViewerPage"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F0000000">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ── Top bar ── -->
+        <Grid Grid.Row="0"
+              Padding="16,48,16,12"
+              ColumnDefinitions="Auto,*,Auto">
+
+            <!-- Close -->
+            <Border Grid.Column="0"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="#30FFFFFF"
+                    Stroke="#40C69C6D"
+                    StrokeThickness="1"
+                    Padding="10"
+                    VerticalOptions="Center">
+                <Label Text="✕"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCloseClicked" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- Hint — updated for double-tap + drag only -->
+            <Label Grid.Column="1"
+                   x:Name="HintLabel"
+                   Text="Double-tap to zoom • Drag to explore"
+                   FontSize="11"
+                   CharacterSpacing="0.3"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="#AAEAEAEA" />
+
+            <!-- Reset 1:1 -->
+            <Border Grid.Column="2"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="#30FFFFFF"
+                    Stroke="#40C69C6D"
+                    StrokeThickness="1"
+                    Padding="10,8"
+                    VerticalOptions="Center">
+                <Label Text="1:1"
+                       FontSize="12"
+                       FontAttributes="Bold"
+                       TextColor="#F4C542"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnResetTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+        </Grid>
+
+        <!-- ── Image container ── -->
+        <Grid Grid.Row="1"
+              x:Name="ImageContainer"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill"
+              IsClippedToBounds="True"
+              BackgroundColor="Transparent">
+
+            <Image x:Name="ZoomImage"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   BackgroundColor="Transparent" />
+
+        </Grid>
+
+        <!-- ── Zoom pill ── -->
+        <Border Grid.Row="2"
+                StrokeShape="RoundRectangle 16"
+                BackgroundColor="#50000000"
+                StrokeThickness="0"
+                Padding="16,8"
+                HorizontalOptions="Center"
+                Margin="0,8,0,36">
+            <Label x:Name="ZoomLabel"
+                   Text="1.0×"
+                   FontSize="13"
+                   FontAttributes="Bold"
+                   CharacterSpacing="0.5"
+                   TextColor="#F4C542"
+                   HorizontalOptions="Center" />
+        </Border>
+
+    </Grid>
+</ContentPage>

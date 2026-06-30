@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.MainPage"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+    <ContentPage.Background>
+        <RadialGradientBrush Center="0.5,0.5"
+                         Radius="0.8">
+
+            <!-- Center (rich blend) -->
+            <GradientStop Color="{StaticResource PrimarySecondary_50}" Offset="0.0" />
+
+            <!-- Mid blend -->
+            <GradientStop Color="{StaticResource PrimarySecondary_20}" Offset="0.5" />
+
+            <!-- Outer darker tone -->
+            <GradientStop Color="{StaticResource PrimarySecondary_10}" Offset="1.0" />
+
+        </RadialGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   
+                   Grid.RowSpan="3"/>
+
+        <!-- Header -->
+        <!-- Header -->
+        <Image Source="polymathapplogoedge"
+                          Aspect="AspectFit"
+                          WidthRequest="180"
+                          HeightRequest="180"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"/>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+
+            <!-- Coffee Image -->
+            <Image Source="coffee.jpg"
+                   Aspect="AspectFill" />
+
+            <!-- Overlay Content -->
+            <Grid Padding="20"
+                  BackgroundColor="#20000000">
+
+                <VerticalStackLayout Spacing="100"
+                                     >
+
+                    <Label Text="Every Sip Rewarded"
+                           FontSize="22"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource PrimaryDarkText}" />
+
+                    <!-- Points Section -->
+                    <Grid RowDefinitions="*,*" RowSpacing="50">
+
+                        <VerticalStackLayout HorizontalOptions="Start">
+                            <Label Text="10"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}" />
+                            <Label Text="points&#10;per coffee"
+                                   FontSize="14"
+                                   HorizontalTextAlignment="Start"
+                                   TextColor="{StaticResource PrimaryDarkText}" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" HorizontalOptions="Start">
+                            <Label Text="100"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}" />
+                            <Label Text="points&#10;free coffee"
+                                   FontSize="14"
+                                   HorizontalTextAlignment="Start"
+                                   TextColor="{StaticResource PrimaryDarkText}" />
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Grid>
+
+        </Grid>
+
+        <!-- Bottom Section -->
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="20"
+                             Spacing="15">
+
+            <Label Text="Earn 10 points with every purchase"
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource LightText}" />
+
+            <Label HorizontalOptions="Center"
+                   FontSize="14"
+                   TextColor="{StaticResource LightText}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Collect 100 points and enjoy a " />
+                        <Span Text="free coffee "
+                              TextColor="{StaticResource Primary}"
+                              FontAttributes="Bold"/>
+                        <Span Text="on us" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <!-- Button -->
+            <Button Text="JOIN THE PROGRAM"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource ButtonText}"
+                    FontAttributes="Bold"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    Clicked="OnRegisterButtonClicked"/>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                <Label Text="Already have an account?"
+                       TextColor="{StaticResource LightText}" />
+
+
+                <Label Text="Login"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLoginClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+    </Grid>
+
+
+</ContentPage>

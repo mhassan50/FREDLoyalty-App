@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.HomePage"
+             Shell.TabBarIsVisible="True"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <SolidColorBrush Color="{StaticResource White}" />
+    </ContentPage.Background>
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *">
+            <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   Grid.RowSpan="4"
+                   Opacity="1"/>
+            <!-- ═══════════════════════════════════════ -->
+            <!-- ROW 0 — Header + Logout                -->
+            <!-- ═══════════════════════════════════════ -->
+            <Grid Grid.Row="0" Padding="16,10,16,0"
+                  >
+                <!-- Polymath Logo -->
+                <Image Source="logopolymathapplandscape"
+                          Aspect="AspectFit"
+                          WidthRequest="270"
+                          HeightRequest="100"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Start"/>
+                <!-- Logo + Title -->
+                <!--<VerticalStackLayout Grid.Column="0" Spacing="0"
+                                    VerticalOptions="Center" HorizontalOptions="Center">
+                    <HorizontalStackLayout Spacing="0" VerticalOptions="Center" HorizontalOptions="Center">
+
+  
+
+                        --><!-- POLYMATH text badge --><!--
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                            <Border Background="{StaticResource Primary}"
+                                    StrokeThickness="0"
+                                    Padding="6,3">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+                                <Label Text="POLYMATH"
+                                    FontSize="26"
+                                    FontAttributes="Bold"
+                                    VerticalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{StaticResource White}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>-->
+  
+               
+                <!-- Top-right: Notification Bell + Logout -->
+                <HorizontalStackLayout 
+                    Spacing="4"
+                    HorizontalOptions="End" 
+                    VerticalOptions="Center">
+
+                    <!-- Notification Bell --><!--
+                    <Border x:Name="NotifBorder"
+                            StrokeShape="RoundRectangle 14"
+                            BackgroundColor="#15FFFFFF"
+                            Stroke="#40616b46"
+                            StrokeThickness="1"
+                            Padding="10"
+                            VerticalOptions="Center">
+                        <Grid>
+                            <Image Source="notification.png"
+                                   HeightRequest="22" WidthRequest="22"
+                                   VerticalOptions="Center" />
+                            <Ellipse Fill="#E53935"
+                                     WidthRequest="9" HeightRequest="9"
+                                     HorizontalOptions="End" VerticalOptions="Start"
+                                     Margin="0,0,1,0"
+                                     IsVisible="{Binding HasUnreadNotifications}" />
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenNotificationsCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    --><!-- Thin divider --><!--
+                    <BoxView WidthRequest="1"
+                             HeightRequest="22"
+                             BackgroundColor="#40616b46"
+                             VerticalOptions="Center" />-->
+
+                    <!-- Logout -->
+                    <Border StrokeShape="RoundRectangle 14"
+                            BackgroundColor="#15FFFFFF"
+                            Stroke="#40616b46"
+                            StrokeThickness="1"
+                            Padding="10"
+                            VerticalOptions="Center">
+                        <Image Source="signout"
+                               HeightRequest="22" WidthRequest="22"
+                               VerticalOptions="Center" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LogoutCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </HorizontalStackLayout>
+
+            </Grid>
+
+
+            <!-- ── Content ── -->
+            <VerticalStackLayout Grid.Row="1" Padding="16,0,16,0" Spacing="12">
+
+                <Label Text="{Binding WelcomeNote}" FontSize="13"
+                       HorizontalOptions="Center" TextColor="{StaticResource LightText}" />
+
+                <!--<ActivityIndicator IsRunning="{Binding IsLoading}"
+                                   IsVisible="{Binding IsLoading}"
+                                   Color="{StaticResource Primary}"
+                                   HorizontalOptions="Center" />-->
+
+                <!-- Loyalty Card -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{StaticResource White}"
+                        Stroke="#30616b46" StrokeThickness="1" Padding="20,18">
+                    <VerticalStackLayout Spacing="0">
+
+                        <BoxView HeightRequest="3" CornerRadius="2"
+                                 Margin="30,0,30,14" Color="{StaticResource Primary}" />
+
+                        <Label Text="{Binding LoyaltyName}" FontSize="12"
+                               FontAttributes="Bold" CharacterSpacing="2"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}" Margin="0,0,0,14" />
+
+                        <!-- Stats Row -->
+                        <Grid ColumnDefinitions="*,Auto,*,Auto,*"
+                              HorizontalOptions="Center" Margin="0,0,0,18">
+
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="3">
+                                <Label Text="{Binding QtyPurchased}" FontSize="24"
+                                       FontAttributes="Bold" HorizontalOptions="Center"
+                                       TextColor="{StaticResource Primary}" />
+                                <Label Text="Purchased" FontSize="10"
+                                       HorizontalOptions="Center" TextColor="{StaticResource LightText}" />
+                            </VerticalStackLayout>
+
+                            <BoxView Grid.Column="1" WidthRequest="1" HeightRequest="36"
+                                     VerticalOptions="Center" Margin="12,0" Color="{StaticResource Gray200}" />
+
+                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="3">
+                                <Label Text="{Binding QtyFreeAvailable}" FontSize="24"
+                                       FontAttributes="Bold" HorizontalOptions="Center"
+                                       TextColor="{StaticResource AccentGold}" />
+                                <Label Text="Available" FontSize="10"
+                                       HorizontalOptions="Center" TextColor="{StaticResource LightText}" />
+                            </VerticalStackLayout>
+
+                            <BoxView Grid.Column="3" WidthRequest="1" HeightRequest="36"
+                                     VerticalOptions="Center" Margin="12,0" Color="{StaticResource Gray200}" />
+
+                            <VerticalStackLayout Grid.Column="4" HorizontalOptions="Center" Spacing="3">
+                                <Label Text="{Binding QtyFreeConsumed}" FontSize="24"
+                                       FontAttributes="Bold" HorizontalOptions="Center"
+                                       TextColor="{StaticResource Gray400}" />
+                                <Label Text="Redeemed" FontSize="10"
+                                       HorizontalOptions="Center" TextColor="{StaticResource LightText}" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                        <!-- Coffee Icons -->
+                        <CollectionView ItemsSource="{Binding ImageItems}"
+                                        SelectionMode="None" HorizontalOptions="Fill">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" Span="5"
+                                                 HorizontalItemSpacing="6" VerticalItemSpacing="6" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="{Binding BgColor}"
+                                            Stroke="{Binding BorderColor}"
+                                            StrokeThickness="1.5" Padding="6"
+                                            Opacity="{Binding Opacity}">
+                                        <Image Source="{Binding ImageSource}" Aspect="AspectFill"
+                                               HeightRequest="40" WidthRequest="40"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Label Text="{Binding ProgressHint}" FontSize="11"
+                               HorizontalOptions="Center" CharacterSpacing="0.5"
+                               Margin="0,5,0,0" TextColor="{StaticResource Primary}" Opacity="0.9" />
+
+                        <!-- Offers Section -->
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray200}"
+                                 Margin="0,14,0,10" Opacity="0.5" />
+
+                        <Label Text="TODAY'S OFFERS"
+                               FontSize="10" FontAttributes="Bold"
+                               CharacterSpacing="2"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}"
+                               Margin="0,0,0,8" />
+
+                        <CollectionView ItemsSource="{Binding OfferHint}"
+                                        SelectionMode="None"
+                                        HorizontalOptions="Fill">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="{StaticResource Green100}"
+                                            Stroke="{StaticResource Green400}"
+                                            StrokeThickness="1"
+                                            Padding="12,10"
+                                            Margin="0,0,0,6">
+                                        <Grid ColumnDefinitions="Auto,*">
+                                            <Label Grid.Column="0"
+                                                   Text="☕"
+                                                   FontSize="16"
+                                                   VerticalOptions="Center"
+                                                   Margin="0,0,10,0" />
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding Offer}"
+                                                   FontSize="12"
+                                                   TextColor="{StaticResource Primary}"
+                                                   LineBreakMode="WordWrap"
+                                                   VerticalOptions="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Offers Shortcut -->
+                <!--<Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource Primary}"
+                        StrokeThickness="0" Padding="16,14">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="3">
+                            <Label Text="Current Offers" FontSize="13"
+                                   FontAttributes="Bold" TextColor="{StaticResource White}" />
+                            <Label Text="Tap to view active loyalty programs"
+                                   FontSize="11" TextColor="#CCFFFFFF" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="›" FontSize="22"
+                               TextColor="{StaticResource White}" VerticalOptions="Center" />
+                    </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenOffersCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>-->
+
+                <!-- History Shortcut -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{StaticResource Gray100}"
+                        Stroke="{StaticResource Gray200}" StrokeThickness="1" Padding="16,14">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0" Spacing="3">
+                            <Label Text="Purchase History" FontSize="13"
+                                   FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                            <Label Text="View your coffee purchase history"
+                                   FontSize="11" TextColor="{StaticResource LightText}" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="›" FontSize="22"
+                               TextColor="{StaticResource Primary}" VerticalOptions="Center" />
+                    </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenHistoryCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+            </VerticalStackLayout>
+
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- ROW 1 — Welcome + Loyalty Card         -->
+            <!-- ═══════════════════════════════════════ --><!--
+            <VerticalStackLayout Grid.Row="1" Padding="16,4,16,0" Spacing="2">
+
+                --><!-- Welcome Note --><!--
+                <Label Text="{Binding WelcomeNote}"
+                       FontSize="13"
+                       HorizontalOptions="Center"
+                       Opacity="0.85"
+                       TextColor="{StaticResource LightText}" />
+
+                --><!-- Loading indicator --><!--
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                   IsVisible="{Binding IsLoading}"
+                                   Color="{StaticResource Primary}"
+                                   HorizontalOptions="Center" />
+
+                --><!-- ── Loyalty Card ── --><!--
+                <Border StrokeShape="RoundRectangle 22"
+                        Stroke="#40295F48"
+                        StrokeThickness="1"
+                        Padding="20,18">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource White}" Offset="0.0" />
+                            <GradientStop Color="{StaticResource White}" Offset="0.55" />
+                            <GradientStop Color="{StaticResource White}"             Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    --><!--<Border.Shadow>
+                        <Shadow Brush="#80000000" Offset="0,8" Radius="10" />
+                    </Border.Shadow>--><!--
+
+                    <VerticalStackLayout Spacing="0">
+
+                        --><!-- Gold shimmer divider at top --><!--
+                        <BoxView HeightRequest="1.5"
+                                 CornerRadius="1"
+                                 Margin="30,0,30,14"
+                                 Opacity="0.65" Color="{StaticResource Primary}">
+                            --><!--<BoxView.Color>
+                                <Color></Color>
+                            </BoxView.Color>--><!--
+                        </BoxView>
+
+                        --><!-- Card Title --><!--
+                        <Label Text="{Binding LoyaltyName}"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               CharacterSpacing="2"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}"
+                               Margin="0,0,0,14" />
+
+                        --><!-- Stats Row --><!--
+                        <Grid ColumnDefinitions="*,Auto,*,Auto,*"
+                              HorizontalOptions="Center"
+                              Margin="0,0,0,18">
+
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="3">
+                                <Label Text="{Binding QtyPurchased}"
+                                       FontSize="24"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       TextColor="{StaticResource Secondary}" />
+                                <Label Text="Purchased"
+                                       FontSize="10"
+                                       CharacterSpacing="0.5"
+                                       HorizontalOptions="Center"
+                                       TextColor="{StaticResource LightText}"
+                                       Opacity="0.7" />
+                            </VerticalStackLayout>
+
+                            --><!-- Divider --><!--
+                            <BoxView Grid.Column="1"
+                                     WidthRequest="1"
+                                     HeightRequest="36"
+                                     VerticalOptions="Center"
+                                     Margin="12,0"
+                                     Opacity="0.3"
+                                     Color="{StaticResource Secondary}" />
+
+                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="3">
+                                <Label Text="{Binding QtyFreeAvailable}"
+                                       FontSize="24"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       TextColor="#5DA389" />
+                                <Label Text="Available"
+                                       FontSize="10"
+                                       CharacterSpacing="0.5"
+                                       HorizontalOptions="Center"
+                                       TextColor="{StaticResource LightText}"
+                                       Opacity="0.7" />
+                            </VerticalStackLayout>
+
+                            --><!-- Divider --><!--
+                            <BoxView Grid.Column="3"
+                                     WidthRequest="1"
+                                     HeightRequest="36"
+                                     VerticalOptions="Center"
+                                     Margin="12,0"
+                                     Opacity="0.3"
+                                     Color="{StaticResource Secondary}" />
+
+                            <VerticalStackLayout Grid.Column="4" HorizontalOptions="Center" Spacing="3">
+                                <Label Text="{Binding QtyFreeConsumed}"
+                                       FontSize="24"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       TextColor="{StaticResource Gray300}" />
+                                <Label Text="Redeemed"
+                                       FontSize="10"
+                                       CharacterSpacing="0.5"
+                                       HorizontalOptions="Center"
+                                       TextColor="{StaticResource LightText}"
+                                       Opacity="0.7" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                        --><!-- Coffee Icons Grid --><!--
+                        <CollectionView ItemsSource="{Binding ImageItems}"
+                                        SelectionMode="None"
+                                        HorizontalOptions="Fill">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical"
+                                                 Span="5"
+                                                 HorizontalItemSpacing="6"
+                                                 VerticalItemSpacing="6" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="{Binding BgColor}"
+                                            Stroke="{Binding BorderColor}"
+                                            StrokeThickness="1.5"
+                                            Padding="6"
+                                            Opacity="{Binding Opacity}">
+                                        <Image Source="{Binding ImageSource}"
+                                               Aspect="AspectFill"
+                                               HeightRequest="40"
+                                               WidthRequest="40"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        --><!-- Progress hint --><!--
+                        <Label Text="{Binding ProgressHint}"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               CharacterSpacing="0.5"
+                               Margin="0,14,0,0"
+                               TextColor="{StaticResource Primary}"
+                               Opacity="0.9" />
+
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            --><!-- ═══════════════════════════════════════ -->
+            <!-- ROW 2 — Quick Actions                  -->
+            <!-- ═══════════════════════════════════════ --><!--
+            <VerticalStackLayout Grid.Row="2" Padding="16,10,16,4" Spacing="5" >
+
+                <Label Text="QUICK ACTIONS"
+                       FontSize="12"
+                       CharacterSpacing="2.5"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"
+                       Opacity="0.8" />
+
+                --><!-- Row 1: Show ID, Menu, Offers --><!--
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+
+                    --><!-- Show ID --><!--
+                    <Border Grid.Column="0"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="#40295F48"
+                            StrokeThickness="1"
+                            Padding="10,14"
+                            >
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                            <Image Source="scan.png" HeightRequest="36" WidthRequest="36" HorizontalOptions="Center" />
+                            <Label Text="SHOW ID"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="1"
+                                   FontSize="10"
+                                   TextColor="{StaticResource Black}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenQrCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    --><!-- Menu --><!--
+                    <Border Grid.Column="1"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="#40295F48"
+                            StrokeThickness="1"
+                            Padding="10,14">
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                            <Image Source="food.png" HeightRequest="36" WidthRequest="36" HorizontalOptions="Center" />
+                            <Label Text="MENU"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="1"
+                                   FontSize="10"
+                                   TextColor="{StaticResource Black}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenMenuCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    --><!-- Offers --><!--
+                    <Border Grid.Column="2"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="#40295F48"
+                            StrokeThickness="1"
+                            Padding="10,14">
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                            <Image Source="pricetag.png" HeightRequest="36" WidthRequest="36" HorizontalOptions="Center" />
+                            <Label Text="OFFERS"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="1"
+                                   FontSize="10"
+                                   TextColor="{StaticResource Black}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenOffersCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </Grid>
+
+                --><!-- Row 2: History (full width accent) --><!--
+                <Border StrokeShape="RoundRectangle 18"
+                        BackgroundColor="{StaticResource White}"
+                        Stroke="#40295F48"
+                        StrokeThickness="1"
+                        Padding="20,14">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="14" VerticalOptions="Center">
+                        <Image Source="document.png" HeightRequest="34" WidthRequest="34" VerticalOptions="Center" />
+                        <Label Text="HISTORY"
+                               FontAttributes="Bold"
+                               CharacterSpacing="1.5"
+                               FontSize="11"
+                               VerticalOptions="Center"
+                               TextColor="{StaticResource Black}" />
+                    </HorizontalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenHistoryCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+            </VerticalStackLayout>
+
+            --><!-- ═══════════════════════════════════════ -->
+            <!-- ROW 3 — Feedback & Rating              -->
+            <!-- ═══════════════════════════════════════ --><!--
+            <VerticalStackLayout Grid.Row="3" Padding="16,0,16,36" Spacing="12" >
+
+                <Label Text="FEEDBACK &amp; RATING"
+                       FontSize="11"
+                       CharacterSpacing="2.5"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"
+                       Opacity="0.8" />
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+
+                    --><!-- Rate Us --><!--
+                    <Border Grid.Column="0"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="#40295F48"
+                            StrokeThickness="1"
+                            Padding="10,14">
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                            <Image Source="rate.png" HeightRequest="36" WidthRequest="36" HorizontalOptions="Center" />
+                            <Label Text="RATE US"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="1"
+                                   FontSize="10"
+                                   TextColor="{StaticResource Black}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RateUsCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    --><!-- Suggestions --><!--
+                    <Border Grid.Column="1"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="#40295F48"
+                            StrokeThickness="1"
+                            Padding="10,14">
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                            <Image Source="idea.png" HeightRequest="36" WidthRequest="36" HorizontalOptions="Center" />
+                            <Label Text="SUGGESTIONS"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="1"
+                                   FontSize="10"
+                                   TextColor="{StaticResource Black}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SuggestionsCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    --><!-- We Are Here --><!--
+                    <Border Grid.Column="2"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="#40295F48"
+                            StrokeThickness="1"
+                            Padding="10,14">
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                            <Image Source="map.png" HeightRequest="36" WidthRequest="36" HorizontalOptions="Center" />
+                            <Label Text="WE ARE HERE"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="1"
+                                   FontSize="10"
+                                   TextColor="{StaticResource Black}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenMapCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </Grid>
+
+            </VerticalStackLayout>-->
+            <!-- ── Busy overlay — dim + blur + spinner ── -->
+            <Grid IsVisible="{Binding IsLoading}" Grid.RowSpan="3"
+              InputTransparent="False">
+
+                <!-- Semi-transparent dark overlay -->
+                <BoxView BackgroundColor="#80000000"
+                         HorizontalOptions="Fill"
+                         VerticalOptions="Fill" />
+
+                <!-- Spinner card -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{StaticResource White}"
+                        StrokeThickness="0"
+                        Padding="32,28"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="200">
+                    <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                           Color="{StaticResource Primary}"
+                                           HeightRequest="48"
+                                           WidthRequest="48"
+                                           HorizontalOptions="Center" />
+                        <Label Text="Please wait..."
+                               FontSize="13"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource LightText}" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

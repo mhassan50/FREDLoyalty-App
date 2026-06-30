@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.RatingPage"
+             Shell.TabBarIsVisible="True"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <SolidColorBrush Color="#D4D4D4" />
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 0 — Header (brown gradient)        -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}"         Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_30}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid Padding="16,36,16,20"
+                  ColumnDefinitions="Auto,*">
+
+                <!-- Back Button -->
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40616b46"
+                        StrokeThickness="1"
+                        Padding="10"
+                        VerticalOptions="Center">
+                    <Image Source="home"
+                           HeightRequest="22"
+                           WidthRequest="22"
+                           VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Title -->
+                <VerticalStackLayout Grid.Column="1"
+                                     HorizontalOptions="Center"
+                                     Spacing="3">
+                    <Label Text="RATE US"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2.5"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                    <Label Text="POLYMATH COFFEE"
+                           FontSize="10"
+                           CharacterSpacing="2"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <!-- Gold shimmer line -->
+            <BoxView HeightRequest="2"
+                     VerticalOptions="End"
+                     Opacity="0.6" Color="{StaticResource Green500}" />
+
+
+        </Grid>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 1 — Content                        -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="1">
+            <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   
+                   Grid.RowSpan="4"/>
+            <ScrollView >
+                <VerticalStackLayout Padding="20,14,20,14" Spacing="16">
+
+                    <!-- ── Branch Card ── -->
+                    <!--<Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{StaticResource White}"
+                        Stroke="#25000000"
+                        StrokeThickness="0.5"
+                        Padding="20,18">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,2" Radius="8" Opacity="0.08" />
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="Auto,*">
+
+                            --><!-- Coffee cup icon bg --><!--
+                            <Border Grid.Column="0"
+                                StrokeShape="RoundRectangle 14"
+                                BackgroundColor="{StaticResource Primary}"
+                                StrokeThickness="0"
+                                WidthRequest="52"
+                                HeightRequest="52"
+                                Margin="0,0,14,0">
+                                <Label Text="☕"
+                                   FontSize="24"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1"
+                                             Spacing="3"
+                                             VerticalOptions="Center">
+                                <Label Text="YOU ARE VISITING"
+                                   FontSize="9"
+                                   CharacterSpacing="1.5"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Tertiary}"
+                                   Opacity="0.7" />
+                                <Label Text="{Binding BranchName}"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}" />
+                                <Label Text="{Binding BranchAddress}"
+                                   FontSize="11"
+                                   TextColor="{StaticResource Tertiary}"
+                                   Opacity="0.75"
+                                   IsVisible="{Binding HasAddress}" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </Border>-->
+
+
+                    <!-- ── Branch Picker Card ── -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="#25000000"
+                            StrokeThickness="0.5"
+                            Padding="20,18">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,2" Radius="8" Opacity="0.08" />
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="Auto,*">
+
+                            <Border Grid.Column="0"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="{StaticResource Primary}"
+                                    StrokeThickness="0"
+                                    WidthRequest="52" HeightRequest="52"
+                                    Margin="0,0,14,0">
+                                <Label Text="☕" FontSize="24"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Spacing="3"
+                                                 VerticalOptions="Center">
+
+                                <Label Text="YOU ARE VISITING"
+                                       FontSize="9" CharacterSpacing="1.5"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Primary}"
+                                       Opacity="0.7" />
+
+                                <Label Text="{Binding BranchName}"
+                                       FontSize="17" FontAttributes="Bold"
+                                       TextColor="{StaticResource Primary}" />
+
+                                <!-- Scrolling address ticker -->
+                                <Grid IsVisible="{Binding HasAddress}"
+                                      HeightRequest="22"
+                                      ColumnDefinitions="Auto,*">
+
+                                    <Label Grid.Column="0"
+                                           Text="📍" FontSize="11"
+                                           VerticalOptions="Center"
+                                           Margin="0,0,6,0" />
+
+                                    <AbsoluteLayout Grid.Column="1"
+                                                    IsClippedToBounds="True"
+                                                    HorizontalOptions="Fill"
+                                                    HeightRequest="22">
+                                        <Label x:Name="TickerLabel"
+                                               Text="{Binding BranchAddress}"
+                                               FontSize="11"
+                                               TextColor="{StaticResource LightText}"
+                                               VerticalOptions="Center"
+                                               LineBreakMode="NoWrap"
+                                               AbsoluteLayout.LayoutFlags="None"
+                                               AbsoluteLayout.LayoutBounds="0,0,-1,-1" />
+                                    </AbsoluteLayout>
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+
+                    <!-- ── Rating Card ── -->
+                    <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{StaticResource White}"
+                        Stroke="#25000000"
+                        StrokeThickness="0.5"
+                        Padding="20,14">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,2" Radius="8" Opacity="0.08" />
+                        </Border.Shadow>
+
+                        <VerticalStackLayout Spacing="0">
+
+                            <Label Text="How was your experience?"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}"
+                               Margin="0,0,0,4" />
+
+                            <Label Text="Tap a star to rate"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Tertiary}"
+                               Opacity="0.65"
+                               Margin="0,0,0,6" />
+
+                            <!-- Star Rating Row -->
+                            <HorizontalStackLayout HorizontalOptions="Center"
+                                               Spacing="8"
+                                               Margin="0,0,0,16">
+
+                                <!-- Star 1 -->
+                                <Label Text="{Binding Star1}"
+                                   FontSize="42"
+                                   TextColor="{StaticResource AccentGold}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetRatingCommand}"
+                                                          CommandParameter="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Star 2 -->
+                                <Label Text="{Binding Star2}"
+                                   FontSize="42"
+                                   TextColor="{StaticResource AccentGold}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetRatingCommand}"
+                                                          CommandParameter="2" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Star 3 -->
+                                <Label Text="{Binding Star3}"
+                                   FontSize="42"
+                                   TextColor="{StaticResource AccentGold}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetRatingCommand}"
+                                                          CommandParameter="3" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Star 4 -->
+                                <Label Text="{Binding Star4}"
+                                   FontSize="42"
+                                   TextColor="{StaticResource AccentGold}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetRatingCommand}"
+                                                          CommandParameter="4" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Star 5 -->
+                                <Label Text="{Binding Star5}"
+                                   FontSize="42"
+                                   TextColor="{StaticResource AccentGold}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SetRatingCommand}"
+                                                          CommandParameter="5" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                            </HorizontalStackLayout>
+
+                            <!-- Rating label -->
+                            <Label Text="{Binding RatingLabel}"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               CharacterSpacing="0.5"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Tertiary}" />
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- ── Suggestion Card ── -->
+                    <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{StaticResource White}"
+                        Stroke="#25000000"
+                        StrokeThickness="0.5"
+                        Padding="20,12">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,2" Radius="8" Opacity="0.08" />
+                        </Border.Shadow>
+
+                        <VerticalStackLayout Spacing="12">
+
+                            <Label Text="Share your thoughts"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}" />
+
+                            <Label Text="Tell us what you loved or what we can improve"
+                               FontSize="11"
+                               TextColor="{StaticResource Tertiary}"
+                               Opacity="0.7" />
+
+                            <!-- Suggestion text box -->
+                            <Border StrokeShape="RoundRectangle 14"
+                                BackgroundColor="#F5F5F5"
+                                Stroke="#20000000"
+                                StrokeThickness="0.5"
+                                Padding="14,10">
+                                <Editor Text="{Binding SuggestionText}"
+                                    Placeholder="e.g. The coffee was amazing! I'd love to see more seasonal drinks..."
+                                    PlaceholderColor="#AAAAAA"
+                                    TextColor="{StaticResource Primary}"
+                                    BackgroundColor="Transparent"
+                                    FontSize="13"
+                                    MinimumHeightRequest="90"
+                                    AutoSize="TextChanges" />
+                            </Border>
+
+                            <!-- Character count -->
+                            <Label Text="{Binding CharCount}"
+                               FontSize="10"
+                               HorizontalOptions="End"
+                               TextColor="{StaticResource Tertiary}"
+                               Opacity="0.5" />
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- ── Submit Button ── -->
+                    <Border StrokeShape="RoundRectangle 22"
+                        StrokeThickness="0"
+                        HeightRequest="54"
+                        IsEnabled="{Binding CanSubmit}">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="{StaticResource Primary}"   Offset="0.0" />
+                                <GradientStop Color="{StaticResource Tertiary}"  Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Primary}"
+                                Offset="0,4"
+                                Radius="12"
+                                Opacity="0.3" />
+                        </Border.Shadow>
+
+                        <Grid>
+                            <ActivityIndicator IsRunning="{Binding IsSubmitting}"
+                                           IsVisible="{Binding IsSubmitting}"
+                                           Color="{StaticResource White}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+
+                            <Label Text="SUBMIT FEEDBACK"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               CharacterSpacing="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="{StaticResource White}"
+                               IsVisible="{Binding IsNotSubmitting}" />
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SubmitCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- Disabled hint -->
+                    <Label Text="Please select a star rating before submitting"
+                       FontSize="11"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Tertiary}"
+                       Opacity="0.5"
+                       IsVisible="{Binding CannotSubmit}" />
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid >
+
+
+    </Grid>
+</ContentPage>

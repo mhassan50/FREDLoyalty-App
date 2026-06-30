@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:FREDLoyalty_App.MVVM.Models"
+             xmlns:vm="clr-namespace:FREDLoyalty_App.MVVM.ViewModels"
+             x:DataType="vm:NotificationHistoryViewModel"
+             x:Class="FREDLoyalty_App.MVVM.Views.NotificationHistoryPage"
+             Shell.TabBarIsVisible="True"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <SolidColorBrush Color="#D4D4D4" />
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 0 — Header                         -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="0">
+
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_30}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid Padding="16,36,16,20"
+                  ColumnDefinitions="Auto,*,Auto">
+
+                <!-- Back Button -->
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40295F48"
+                        StrokeThickness="1"
+                        Padding="10"
+                        VerticalOptions="Center">
+                    <Image Source="home"
+                           HeightRequest="22"
+                           WidthRequest="22"
+                           VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Title -->
+                <VerticalStackLayout Grid.Column="1"
+                                     HorizontalOptions="Center"
+                                     Spacing="3">
+                    <Label Text="NOTIFICATIONS"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2.5"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                    <Label Text="COFFEE PROGRAM"
+                           FontSize="10"
+                           CharacterSpacing="2"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+
+                <!-- Total Badge -->
+                <Border Grid.Column="2"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="{StaticResource Primary}"
+                        StrokeThickness="0"
+                        Padding="12,6"
+                        VerticalOptions="Center">
+                    <VerticalStackLayout Spacing="0" HorizontalOptions="Center">
+                        <Label Text="{Binding TotalCount}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource White}" />
+                        <Label Text="TOTAL"
+                               FontSize="8"
+                               CharacterSpacing="1.5"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource White}" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Gold shimmer line -->
+            <BoxView HeightRequest="2"
+                     VerticalOptions="End"
+                     Opacity="0.6"
+                     Color="#616b46" />
+
+        </Grid>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 1 — Notifications List             -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+
+            <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   
+                   Grid.RowSpan="2" />
+
+            <!-- Empty State -->
+            <VerticalStackLayout Grid.Row="1"
+                                 IsVisible="{Binding IsEmpty}"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="14">
+                <Image Source="document.png"
+                       HeightRequest="72"
+                       WidthRequest="72"
+                       HorizontalOptions="Center"
+                       Opacity="0.35" />
+                <Label Text="No notifications yet"
+                       FontSize="17"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"
+                       Opacity="0.5" />
+                <Label Text="Your loyalty notifications will appear here"
+                       FontSize="12"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"
+                       Opacity="0.35" />
+            </VerticalStackLayout>
+
+            <!-- Notification List -->
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding NotificationItems}"
+                            SelectionMode="None"
+                            IsVisible="{Binding IsNotEmpty}"
+                            Margin="0,10,0,0">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:NotificationHistoryItemViewModel">
+                        <Grid Padding="16,4,16,4"
+                              ColumnDefinitions="20,*">
+
+                            <!-- Timeline dot + line -->
+                            <VerticalStackLayout Grid.Column="0"
+                                                 HorizontalOptions="Center"
+                                                 Spacing="0">
+                                <Ellipse Fill="{Binding DotColor}"
+                                         WidthRequest="12"
+                                         HeightRequest="12"
+                                         HorizontalOptions="Center"
+                                         Margin="0,16,0,0" />
+                                <BoxView WidthRequest="2"
+                                         HorizontalOptions="Center"
+                                         BackgroundColor="#50000000"
+                                         VerticalOptions="Fill"
+                                         MinimumHeightRequest="50" />
+                            </VerticalStackLayout>
+
+                            <!-- Card -->
+                            <Border Grid.Column="1"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="{StaticResource White}"
+                                    Stroke="#25000000"
+                                    StrokeThickness="0.5"
+                                    Margin="8,6,0,6"
+                                    Padding="14,12">
+                                <Border.Shadow>
+                                    <Shadow Brush="#000000" Offset="0,2" Radius="8" Opacity="0.08" />
+                                </Border.Shadow>
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <!-- Left -->
+                                    <VerticalStackLayout Grid.Column="0" Spacing="0" Margin="0,0,10,0">
+
+                                        <!-- Type badge (colored pill) -->
+                                        <Border StrokeShape="RoundRectangle 6"
+                                                BackgroundColor="{Binding TypeBadgeBgColor}"
+                                                StrokeThickness="0"
+                                                Padding="8,3"
+                                                HorizontalOptions="Start"
+                                                Margin="0,0,0,6">
+                                            <Label Text="{Binding NotifType}"
+                                                   FontSize="9"
+                                                   CharacterSpacing="1.5"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{Binding TypeBadgeTextColor}" />
+                                        </Border>
+
+                                        <!-- Title -->
+                                        <Label Text="{Binding Title}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Primary}"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="2" />
+
+                                        <!-- Body -->
+                                        <Label Text="{Binding Body}"
+                                               FontSize="11"
+                                               TextColor="{StaticResource Tertiary}"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="3"
+                                               Margin="0,5,0,0"
+                                               Opacity="0.85" />
+
+                                        <!-- Divider -->
+                                        <BoxView HeightRequest="0.5"
+                                                 BackgroundColor="#25000000"
+                                                 Margin="0,10,0,8" />
+
+                                        <!-- Status badge — only shown when failed -->
+                                        <Border StrokeShape="RoundRectangle 8"
+                                                BackgroundColor="{Binding StatusBadgeBgColor}"
+                                                StrokeThickness="0"
+                                                Padding="8,4"
+                                                HorizontalOptions="Start"
+                                                IsVisible="{Binding IsFailed}">
+                                            <Label Text="{Binding StatusLabel}"
+                                                   FontSize="10"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{Binding StatusBadgeTextColor}" />
+                                        </Border>
+
+                                    </VerticalStackLayout>
+
+                                    <!-- Right: Date + Time -->
+                                    <HorizontalStackLayout Grid.Column="1"
+                                                           HorizontalOptions="End"
+                                                           Spacing="1"
+                                                           MinimumWidthRequest="48">
+                                        <BoxView WidthRequest="1"
+                                                 BackgroundColor="#40F4C542"
+                                                 Margin="0,0,8,8" />
+                                        <VerticalStackLayout VerticalOptions="Center">
+                                            <Label Text="{Binding DayStr}"
+                                                   FontSize="22"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Center"
+                                                   TextColor="{StaticResource Primary}" />
+                                            <Label Text="{Binding MonthStr}"
+                                                   FontSize="9"
+                                                   CharacterSpacing="1.5"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Center"
+                                                   TextColor="{StaticResource Tertiary}" />
+                                            <Label Text="{Binding YearStr}"
+                                                   FontSize="9"
+                                                   CharacterSpacing="1.5"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Center"
+                                                   TextColor="{StaticResource Tertiary}" />
+                                            <Label Text="{Binding TimeStr}"
+                                                   FontSize="9"
+                                                   HorizontalOptions="Center"
+                                                   TextColor="{StaticResource Tertiary}"
+                                                   Opacity="0.7"
+                                                   Margin="0,4,0,0" />
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </Grid>
+
+        <!-- Busy overlay -->
+        <Grid IsVisible="{Binding IsLoading}"
+              Grid.RowSpan="2"
+              InputTransparent="False">
+            <BoxView BackgroundColor="#80000000"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill" />
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    Padding="32,28"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="200">
+                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       Color="{StaticResource Primary}"
+                                       HeightRequest="48"
+                                       WidthRequest="48"
+                                       HorizontalOptions="Center" />
+                    <Label Text="Please wait..."
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource LightText}" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:Class="FREDLoyalty_App.MVVM.Views.QrPopup"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="Transparent">
+
+    <Grid>
+        
+
+        <!-- ── Dim overlay ── -->
+        <BoxView BackgroundColor="#CC000000"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnOverlayTapped" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- ── Popup Card ── -->
+        <Border StrokeShape="RoundRectangle 28"
+                Stroke="#50616b46"
+                StrokeThickness="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="310">
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_20}" Offset="0.5" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_40}"         Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Border.Shadow>
+                <Shadow Brush="#000000" Offset="0,12" Radius="40" Opacity="0.6" />
+            </Border.Shadow>
+
+            <VerticalStackLayout Spacing="0">
+
+                <!-- ── Card top accent bar ── -->
+                <BoxView HeightRequest="3"
+                         CornerRadius="2"
+                         Margin="40,0"
+                         Opacity="0.75" Color="{StaticResource Green500}" />
+
+
+                <VerticalStackLayout Spacing="0" Padding="28,20,28,28">
+
+                    <!-- Brand row -->
+                    <!-- Header -->
+                    <Image Source="polymathapplogoedge"
+                          Aspect="AspectFit"
+                          WidthRequest="100"
+                          HeightRequest="100"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"/>
+
+                    <!-- Title -->
+                    <Label Text="Your Loyalty ID"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,20"
+                           TextColor="{StaticResource Primary}" />
+
+                    <!-- QR Code frame -->
+                    <Border StrokeShape="RoundRectangle 18"
+                            Stroke="#30616b46"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource White}"
+                            Padding="16"
+                            HorizontalOptions="Center"
+                            Margin="0,0,0,20">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,4" Radius="16" Opacity="0.3" />
+                        </Border.Shadow>
+
+                        <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+
+                            <zxing:BarcodeGeneratorView
+                                x:Name="QrCodeView"
+                                WidthRequest="190"
+                                HeightRequest="190"
+                                ForegroundColor="{StaticResource Primary}"
+                                BackgroundColor="{StaticResource White}"
+                                Format="QrCode" />
+
+                            <!-- Scan hint -->
+                            <Label Text="SCAN TO VERIFY"
+                                   FontSize="9"
+                                   CharacterSpacing="2"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="{StaticResource Tertiary}"
+                                   Opacity="0.7" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Divider -->
+                    <BoxView HeightRequest="1"
+                             Margin="10,0,10,18"
+                             Opacity="0.2"
+                             Color="{StaticResource Secondary}" />
+
+                    <!-- Customer Code --><!--
+                    <VerticalStackLayout Spacing="4" HorizontalOptions="Center" Margin="0,0,0,6">
+                        <Label Text="CUSTOMER CODE"
+                               FontSize="10"
+                               CharacterSpacing="2"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Secondary}"
+                               Opacity="0.8" />
+                        <Label x:Name="CustomerCodeLabel"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               CharacterSpacing="3"
+                               TextColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>-->
+
+                    <!-- Customer Name -->
+                    <Label x:Name="CustomerNameLabel"
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,22"
+                           TextColor="{StaticResource LightText}"
+                           Opacity="0.85" />
+
+                    <!-- Close Button -->
+                    <Border StrokeShape="RoundRectangle 22"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="Transparent"
+                            StrokeThickness="0"
+                            HorizontalOptions="Center"
+                            WidthRequest="160"
+                            HeightRequest="46">
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Primary}" Offset="0,4" Radius="12"  />
+                        </Border.Shadow>
+                        <Label Text="CLOSE"
+                               FontAttributes="Bold"
+                               FontSize="13"
+                               CharacterSpacing="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="{StaticResource ButtonText}" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseClicked" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>

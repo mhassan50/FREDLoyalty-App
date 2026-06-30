@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FREDLoyalty_App.MVVM.Views"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="FREDLoyalty_App.MVVM.Views.VerificationPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="{StaticResource PrimarySecondary_90}"         Offset="0.0" />
+            <GradientStop Color="{StaticResource PrimarySecondary_20}" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid>
+        <Image Source="polymathmenugridapp"
+                   Aspect="Fill"/>
+        <VerticalStackLayout Padding="25" Spacing="20">
+
+            <!-- Logo -->
+            <!-- Header -->
+            <Image Source="polymathapplogoedge"
+                          Aspect="AspectFit"
+                          WidthRequest="180"
+                          HeightRequest="180"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"/>
+
+            <!-- Title -->
+            <VerticalStackLayout Spacing="6" Margin="0,10,0,0">
+                <Label Text="Complete Your Profile"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}" />
+                <Label Text="We need a few more details to set up your loyalty account"
+                       FontSize="12"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       TextColor="{StaticResource Primary}"
+                       Opacity="0.85" />
+            </VerticalStackLayout>
+
+            <!-- Form Card -->
+            <Frame BackgroundColor="{StaticResource Gray950}"
+                   CornerRadius="20"
+                   Padding="20"
+                   HasShadow="True">
+
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- Mobile Number -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Mobile Number"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               CharacterSpacing="0.5"
+                               TextColor="{StaticResource Primary}" />
+
+                        <Border StrokeThickness="0"
+                                BackgroundColor="{StaticResource PrimarySecondary_30}"
+                                StrokeShape="RoundRectangle 15"
+                                HeightRequest="50"
+                                Padding="10,0">
+                            <Entry Text="{Binding PhoneNumber}"
+                                   Placeholder="e.g. 03001234567"
+                                   Keyboard="Telephone"
+                                   BackgroundColor="Transparent"
+                                   TextColor="{StaticResource Gray500}"
+                                   PlaceholderColor="{StaticResource Gray300}"
+                                   VerticalOptions="Center"
+                                   MaxLength="13" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Date of Birth (optional) -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Date of Birth (optional)"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               CharacterSpacing="0.5"
+                               TextColor="{StaticResource Primary}" />
+
+                        <Border StrokeThickness="0"
+                                BackgroundColor="{StaticResource PrimarySecondary_30}"
+                                StrokeShape="RoundRectangle 15"
+                                HeightRequest="50"
+                                Padding="10,0">
+                            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                                <Label Text="{Binding DobDisplay}"
+                                       TextColor="{StaticResource Gray500}"
+                                       VerticalOptions="Center"
+                                       FontSize="14" />
+                                <Label Grid.Column="1"
+                                       Text="📅"
+                                       FontSize="16"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDobTapped" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </VerticalStackLayout>
+                    <!-- Error message -->
+                    <Label Text="{Binding ErrorMessage}"
+                           FontSize="12"
+                           TextColor="{StaticResource Primary}"
+                           IsVisible="{Binding ErrorMessage}"
+                           HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Save Button -->
+            <Button Text="CONTINUE"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource ButtonText}"
+                    FontAttributes="Bold"
+                    CornerRadius="25"
+                    HeightRequest="55"
+                    Command="{Binding SaveDetailsCommand}" />
+
+            <!-- Loading -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+
+        <!-- DOB Picker -->
+        <controls:DobPickerView x:Name="DobPicker"
+                     ZIndex="100"/>
+
+        <!-- ── Busy overlay — dim + blur + spinner ── -->
+        <Grid IsVisible="{Binding IsBusy}" Grid.RowSpan="2"
+              InputTransparent="False">
+
+            <!-- Semi-transparent dark overlay -->
+            <BoxView BackgroundColor="#80000000"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill" />
+
+            <!-- Spinner card -->
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    Padding="32,28"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="200">
+                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                       Color="{StaticResource Primary}"
+                                       HeightRequest="48"
+                                       WidthRequest="48"
+                                       HorizontalOptions="Center" />
+                    <Label Text="Please wait..."
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource LightText}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+
+    </Grid>
+    
+
+</ContentPage>

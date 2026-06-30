@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.SuggestionPopup"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="Transparent">
+
+    <Grid>
+
+        <!-- ── Dim overlay ── -->
+        <BoxView BackgroundColor="#CC000000"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnOverlayTapped" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- ── Popup Card ── -->
+        <Border StrokeShape="RoundRectangle 28"
+                Stroke="#50616b46"
+                StrokeThickness="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="320"
+                Margin="20,0">
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_20}" Offset="0.5" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_40}"         Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Border.Shadow>
+                <Shadow Brush="#000000" Offset="0,12" Radius="40" Opacity="0.6" />
+            </Border.Shadow>
+
+            <VerticalStackLayout Spacing="0">
+
+                <!-- Gold shimmer top bar -->
+                <BoxView HeightRequest="3"
+                         CornerRadius="2"
+                         Margin="40,0"
+                         Opacity="0.75" Color="{StaticResource Green500}"/>
+
+
+                <VerticalStackLayout Spacing="0" Padding="24,18,24,24">
+
+                    <!-- Brand row -->
+                    <!-- Header -->
+                    <Image Source="logopolymathapplandscape"
+                          Aspect="AspectFit"
+                          WidthRequest="160"
+                          HeightRequest="80"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"/>
+
+                    <!-- Title -->
+                    <Label Text="Share a Suggestion"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,4"
+                           TextColor="{StaticResource Primary}" />
+
+                    <Label Text="We'd love to hear your ideas"
+                           FontSize="11"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,18"
+                           TextColor="{StaticResource LightText}"
+                           Opacity="0.65" />
+
+                    <!-- Divider -->
+                    <BoxView HeightRequest="1"
+                             Margin="0,0,0,16"
+                             Opacity="0.2"
+                             Color="{StaticResource Secondary}" />
+
+                    <!-- Suggestion text box -->
+                    <Border StrokeShape="RoundRectangle 14"
+                            BackgroundColor="#20FFFFFF"
+                            Stroke="#30616b46"
+                            StrokeThickness="1"
+                            Padding="12,10"
+                            Margin="0,0,0,8">
+                        <Editor Text="{Binding SuggestionText}"
+                                Placeholder="e.g. I'd love to see more seasonal drinks..."
+                                PlaceholderColor="#70616b46"
+                                TextColor="{StaticResource LightText}"
+                                BackgroundColor="Transparent"
+                                FontSize="13"
+                                MinimumHeightRequest="110"
+                                MaximumHeightRequest="160"
+                                AutoSize="TextChanges" />
+                    </Border>
+
+                    <!-- Char count -->
+                    <Label Text="{Binding CharCount}"
+                           FontSize="10"
+                           HorizontalOptions="End"
+                           Margin="0,0,4,16"
+                           TextColor="{StaticResource LightText}"
+                           Opacity="0.5" />
+
+                    <!-- Submit Button -->
+                    <Border StrokeShape="RoundRectangle 22"
+                            BackgroundColor="{StaticResource Primary}"
+                            Stroke="Transparent"
+                            StrokeThickness="0"
+                            HorizontalOptions="Fill"
+                            HeightRequest="48"
+                            Margin="0,0,0,12"
+                            IsEnabled="{Binding CanSubmitSuggestion}">
+                        <Border.Shadow>
+                            <Shadow Brush="#616b46"
+                                    Offset="0,4"
+                                    Radius="12"
+                                    Opacity="0.35" />
+                        </Border.Shadow>
+
+                        <Grid>
+                            <ActivityIndicator IsRunning="{Binding IsSubmittingSuggestion}"
+                                               IsVisible="{Binding IsSubmittingSuggestion}"
+                                               Color="{StaticResource Primary}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                            <Label Text="SEND SUGGESTION"
+                                   FontAttributes="Bold"
+                                   FontSize="12"
+                                   CharacterSpacing="1.5"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   TextColor="{StaticResource ButtonText}"
+                                   IsVisible="{Binding IsNotSubmittingSuggestion}" />
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SubmitSuggestionCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- Close Button -->
+                    <Border StrokeShape="RoundRectangle 22"
+                            BackgroundColor="Transparent"
+                            Stroke="#50616b46"
+                            StrokeThickness="1"
+                            HorizontalOptions="Fill"
+                            HeightRequest="44">
+                        <Label Text="CLOSE"
+                               FontAttributes="Bold"
+                               FontSize="12"
+                               CharacterSpacing="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="{StaticResource LightText}" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseClicked" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>

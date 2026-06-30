@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:FREDLoyalty_App.MVVM.Models"
+             x:Class="FREDLoyalty_App.MVVM.Views.MenuPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Background>
+        <SolidColorBrush Color="{StaticResource White}" />
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   
+                   Grid.RowSpan="2"/>
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 0 — Header (brown gradient)        -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}"         Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_30}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid Padding="16,36,16,20"
+                  ColumnDefinitions="Auto,*">
+
+                <!-- Back Button -->
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40616b46"
+                        StrokeThickness="1"
+                        Padding="10"
+                        VerticalOptions="Center">
+                    <Image Source="home"
+                           HeightRequest="22"
+                           WidthRequest="22"
+                           VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Title -->
+                <VerticalStackLayout Grid.Column="1"
+                                     HorizontalOptions="Center"
+                                     Spacing="3">
+                    <Label Text="{Binding BranchName}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2.5"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <!-- Gold shimmer line -->
+            <BoxView HeightRequest="2"
+                     VerticalOptions="End"
+                     Opacity="0.6" Color="{StaticResource Green500}" />
+
+
+        </Grid>
+
+        <!-- ── Content ── -->
+        <!-- ── Content ── -->
+        <CollectionView Grid.Row="1"
+                ItemsSource="{Binding Categories}"
+                IsGrouped="True"
+                Margin="0,8,0,0">
+
+            <!-- Category header -->
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate x:DataType="models:Mdl_MenuCategory">
+                    <VerticalStackLayout Spacing="0">
+                        <Grid BackgroundColor="White"
+                      Padding="16,14,16,14"
+                      ColumnDefinitions="Auto,*,Auto">
+                            <BoxView Grid.Column="0"
+                             WidthRequest="4" HeightRequest="20"
+                             CornerRadius="2"
+                             Color="{StaticResource Primary}"
+                             VerticalOptions="Center"
+                             Margin="0,0,10,0"/>
+                            <Label Grid.Column="1"
+                           Text="{Binding CategoryName}"
+                           FontSize="16" FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"
+                           VerticalOptions="Center"/>
+                            <Label Grid.Column="2"
+                           Text="{Binding Count, StringFormat='{0} items'}"
+                           FontSize="11"
+                           TextColor="{StaticResource LightText}"
+                           VerticalOptions="Center"/>
+                        </Grid>
+                        <BoxView HeightRequest="1"
+                         Color="{StaticResource Gray200}"
+                         Opacity="0.6"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+
+            <!-- Item card -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Mdl_MenuItem">
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="White"
+                            StrokeThickness="1"
+                            Stroke="{StaticResource Gray200}"
+                            Margin="12,6"
+                            Shadow="{Shadow Brush=Black, Offset='0,2', Radius=6, Opacity=0.06}">
+                        <VerticalStackLayout Spacing="0">
+
+                            <!-- Image -->
+                            <Grid HeightRequest="220">
+                                <Border StrokeShape="RoundRectangle 16,16,0,0"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource PrimarySecondary_30}"
+                                        IsVisible="{Binding HasImage}">
+                                    <Image Source="{Binding ItemImage}"
+                                           Aspect="AspectFill"
+                                           HeightRequest="220"
+                                           HorizontalOptions="Fill"/>
+                                </Border>
+                                <Border StrokeShape="RoundRectangle 16,16,0,0"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource PrimarySecondary_30}"
+                                        IsVisible="{Binding HasNoImage}">
+                                    <Label Text="☕" FontSize="64"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </Grid>
+
+                            <!-- Info -->
+                            <VerticalStackLayout Padding="14,12,14,14" Spacing="6">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding DispItemName}"
+                                           FontSize="15" FontAttributes="Bold"
+                                           TextColor="{StaticResource Primary}"
+                                           LineBreakMode="WordWrap"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           FontSize="14" FontAttributes="Bold"
+                                           TextColor="{StaticResource Primary}"
+                                           VerticalOptions="Center"
+                                           Margin="8,0,0,0"
+                                           IsVisible="{Binding HasRate}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Rs. "/>
+                                                <Span Text="{Binding Rate}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                                <BoxView HeightRequest="1"
+                                         Color="{StaticResource Gray200}"
+                                         Opacity="0.6"
+                                         IsVisible="{Binding HasDescription}"/>
+                                <Label Text="{Binding DispItemDescription}"
+                                       FontSize="12"
+                                       TextColor="{StaticResource LightText}"
+                                       LineBreakMode="WordWrap"
+                                       IsVisible="{Binding HasDescription}"/>
+                            </VerticalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        <!-- ── Busy overlay ── -->
+        <Grid Grid.RowSpan="2"
+              IsVisible="{Binding IsLoading}"
+              InputTransparent="False">
+            <BoxView BackgroundColor="#80000000"/>
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    Padding="32,28"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="180">
+                <VerticalStackLayout Spacing="14" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       Color="{StaticResource Primary}"
+                                       HeightRequest="44"
+                                       WidthRequest="44"
+                                       HorizontalOptions="Center"/>
+                    <Label Text="Loading menu..."
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource LightText}"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+
+
+    </Grid>
+</ContentPage>

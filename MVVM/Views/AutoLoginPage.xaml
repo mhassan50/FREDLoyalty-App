@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.AutoLoginPage"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False">
+    <Grid>
+
+        <!-- Overlay for loading animation -->
+        <Grid BackgroundColor="{StaticResource White}"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill" />
+
+        <!-- Content Overlay with Loading Indicator -->
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+
+            <!-- Loading section with Activity Indicator -->
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="0">
+                <Image x:Name="gifAnimation"
+                       Source="logoanimationpolymathapp.gif"
+                       WidthRequest="220" HeightRequest="220"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+                <!-- Loading Text -->
+                <Label Text="Loading, please wait..."
+                     FontSize="16"
+                     TextColor="{StaticResource Tertiary}"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     FontAttributes="Italic"/>
+
+                <!-- Framed Activity Indicator -->
+                <!--<Frame Padding="15"
+                     BackgroundColor="White"
+                     CornerRadius="60"
+                     HasShadow="True"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+                  <ActivityIndicator IsRunning="True"
+                                     Color="#4A6A4C"
+                                     WidthRequest="40"
+                                     HeightRequest="40"/>
+              </Frame>-->
+
+                <!-- Optional Progress Bar -->
+                <ProgressBar x:Name="progressBar"
+                           ProgressColor="{StaticResource Tertiary}"
+                           WidthRequest="300"
+                           HeightRequest="40"
+                           HorizontalOptions="Center"
+                           Margin="0, 20, 0, 0" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

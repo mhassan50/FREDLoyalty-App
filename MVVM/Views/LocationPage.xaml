@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:FREDLoyalty_App.MVVM.Views"
+             x:Class="FREDLoyalty_App.MVVM.Views.LocationPage"
+             Shell.TabBarIsVisible="True"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <SolidColorBrush Color="{StaticResource White}" />
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*">
+
+
+
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 0 — Header (brown gradient)        -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="0">
+
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}"         Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_30}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid Padding="16,36,16,20"
+                  ColumnDefinitions="Auto,*,Auto">
+
+                <!-- Back Button -->
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40295F48"
+                        StrokeThickness="1"
+                        Padding="10"
+                        VerticalOptions="Center">
+                    <Image Source="home"
+                           HeightRequest="22"
+                           WidthRequest="22"
+                           VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Title -->
+                <VerticalStackLayout Grid.Column="1"
+                                     HorizontalOptions="Center"
+                                     Spacing="3">
+                    <Label Text="OUR LOCATIONS"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2.5"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                    <Label Text="COFFEE PROGRAM"
+                           FontSize="10"
+                           CharacterSpacing="2"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+
+                <!-- Total Badge -->
+                <Border Grid.Column="2"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40295F48"                        
+                        StrokeThickness="1"
+                        Padding="12,6"
+                        VerticalOptions="Center">
+                    <VerticalStackLayout Spacing="0" HorizontalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 12"
+                                BackgroundColor="Transparent"
+                                StrokeThickness="0"
+                                Padding="0"
+                                IsVisible="{Binding IsNotLocating}">
+                            <Label Text="↻" FontSize="22"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RefreshLocationCommand}" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Gold shimmer line at bottom of header -->
+            <BoxView HeightRequest="2"
+                     VerticalOptions="End"
+                     Opacity="0.6">
+                <BoxView.Color>
+                    <Color>#616b46</Color>
+                </BoxView.Color>
+            </BoxView>
+
+        </Grid>
+
+
+        <!-- ── Header ── --><!--
+        <Grid Grid.Row="0"
+              Padding="16,44,16,16"
+              ColumnDefinitions="Auto,*,Auto">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}"         Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_30}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Border Grid.Column="0"
+                    StrokeShape="RoundRectangle 12"
+                    BackgroundColor="#20FFFFFF"
+                    Stroke="#40FFFFFF"
+                    StrokeThickness="1"
+                    Padding="10"
+                    VerticalOptions="Center">
+                <Image Source="home.png"
+                       HeightRequest="20" WidthRequest="20" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1"
+                                 HorizontalOptions="Center"
+                                 Spacing="2">
+                <Label Text="OUR LOCATIONS"
+                       FontSize="16" FontAttributes="Bold"
+                       CharacterSpacing="2"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource White}" />
+                <Label Text="POLYMATH COFFEE"
+                       FontSize="10" CharacterSpacing="1.5"
+                       HorizontalOptions="Center"
+                       TextColor="#CCFFFFFF" />
+            </VerticalStackLayout>
+
+            <Grid Grid.Column="2"
+                  WidthRequest="44" HeightRequest="44"
+                  VerticalOptions="Center">
+
+                <Border StrokeShape="RoundRectangle 12"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40FFFFFF"
+                        StrokeThickness="1"
+                        Padding="10"
+                        IsVisible="{Binding IsNotLocating}">
+                    <Label Text="↻" FontSize="20"
+                           TextColor="{StaticResource White}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RefreshLocationCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <ActivityIndicator IsRunning="{Binding IsLocating}"
+                                   IsVisible="{Binding IsLocating}"
+                                   Color="{StaticResource White}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+            </Grid>
+        </Grid>-->
+
+        <!-- ── Content ── -->
+        <Grid Grid.Row="1">
+
+            <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   Grid.RowSpan="2"/>
+            <!-- No branches -->
+            <VerticalStackLayout IsVisible="{Binding NoBranches}"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="12">
+                <Label Text="📍" FontSize="48"
+                       HorizontalOptions="Center" />
+                <Label Text="No locations available"
+                       FontSize="14" FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}" />
+            </VerticalStackLayout>
+
+            <!-- Branch cards built in code-behind -->
+            <ScrollView IsVisible="{Binding HasBranches}">
+                <VerticalStackLayout Padding="16,16,16,36" Spacing="0">
+
+                    <Label Text="Sorted by nearest to you"
+                           FontSize="11"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource LightText}"
+                           Margin="0,0,0,16" />
+
+                    <!-- Cards injected here by code-behind -->
+                    <VerticalStackLayout x:Name="CardsContainer"
+                                         Spacing="0" />
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+        <!-- ── Busy overlay — dim + blur + spinner ── -->
+        <Grid IsVisible="{Binding IsLocating}"
+              InputTransparent="False" Grid.RowSpan="2">
+
+            <!-- Semi-transparent dark overlay -->
+            <BoxView BackgroundColor="#80000000"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill" />
+
+            <!-- Spinner card -->
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    Padding="32,28"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="200">
+                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsLocating}"
+                                       Color="{StaticResource Primary}"
+                                       HeightRequest="48"
+                                       WidthRequest="48"
+                                       HorizontalOptions="Center" />
+                    <Label Text="Please wait..."
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource LightText}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

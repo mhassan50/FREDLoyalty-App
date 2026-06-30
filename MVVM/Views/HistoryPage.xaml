@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.HistoryPage"
+             Shell.TabBarIsVisible="True"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <SolidColorBrush Color="White" />
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 0 — Header (brown gradient)        -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="0">
+
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}"         Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_30}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid Padding="16,36,16,20"
+                  ColumnDefinitions="Auto,*,Auto">
+
+                <!-- Back Button -->
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40616b46"
+                        StrokeThickness="1"
+                        Padding="10"
+                        VerticalOptions="Center">
+                    <Image Source="home"
+                           HeightRequest="22"
+                           WidthRequest="22"
+                           VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Title -->
+                <VerticalStackLayout Grid.Column="1"
+                                     HorizontalOptions="Center"
+                                     Spacing="3">
+                    <Label Text="MY HISTORY"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2.5"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                    <Label Text="COFFEE PROGRAM"
+                           FontSize="10"
+                           CharacterSpacing="2"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+
+                <!-- Total Badge -->
+                <Border Grid.Column="2"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="{StaticResource Primary}"
+                        StrokeThickness="0"
+                        Padding="12,6"
+                        VerticalOptions="Center">
+                    <VerticalStackLayout Spacing="0" HorizontalOptions="Center">
+                        <Label Text="{Binding TotalPurchased}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource White}" />
+                        <Label Text="TOTAL"
+                               FontSize="8"
+                               CharacterSpacing="1.5"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource White}" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Gold shimmer line at bottom of header -->
+            <BoxView HeightRequest="2"
+                     VerticalOptions="End"
+                     Opacity="0.6">
+                <BoxView.Color>
+                    <Color>#616b46</Color>
+                </BoxView.Color>
+            </BoxView>
+
+        </Grid>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 1 — History List (#D4D4D4 bg)      -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+
+            <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   Grid.RowSpan="2"/>
+            <!-- Loading --><!--
+            <ActivityIndicator Grid.Row="0"
+                               IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center"
+                               Margin="0,30,0,0" />-->
+
+            <!-- Empty State -->
+            <VerticalStackLayout Grid.Row="1"
+                                 IsVisible="{Binding IsEmpty}"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="14">
+                <Image Source="document.png"
+                       HeightRequest="72"
+                       WidthRequest="72"
+                       HorizontalOptions="Center"
+                       Opacity="0.35" />
+                <Label Text="No history yet"
+                       FontSize="17"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"
+                       Opacity="0.5" />
+                <Label Text="Your coffee purchases will appear here"
+                       FontSize="12"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"
+                       Opacity="0.35" />
+            </VerticalStackLayout>
+
+            <!-- Timeline List -->
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding HistoryItems}"
+                            SelectionMode="None"
+                            IsVisible="{Binding IsNotEmpty}"
+                            Margin="0,10,0,0">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="16,4,16,4"
+                              ColumnDefinitions="20,*">
+
+                            <!-- ── Timeline dot + line ── -->
+                            <VerticalStackLayout Grid.Column="0"
+                                                 HorizontalOptions="Center"
+                                                 Spacing="0">
+                                <Ellipse Fill="{Binding DotColor}"
+                                         WidthRequest="12"
+                                         HeightRequest="12"
+                                         HorizontalOptions="Center"
+                                         Margin="0,16,0,0" />
+                                <BoxView WidthRequest="2"
+                                         HorizontalOptions="Center"
+                                         BackgroundColor="#50000000"
+                                         VerticalOptions="Fill"
+                                         MinimumHeightRequest="50" />
+                            </VerticalStackLayout>
+
+                            <!-- ── White Card ── -->
+                            <Border Grid.Column="1"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="{StaticResource White}"
+                                    Stroke="#25000000"
+                                    StrokeThickness="0.5"
+                                    Margin="8,6,0,6"
+                                    Padding="14,12">
+
+                                <Border.Shadow>
+                                    <Shadow Brush="#000000"
+                                            Offset="0,2"
+                                            Radius="8"
+                                            Opacity="0.08" />
+                                </Border.Shadow>
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <!-- ── Left: All details ── -->
+                                    <VerticalStackLayout Grid.Column="0" Spacing="0" Margin="0,0,10,0">
+
+                                        <!-- Loyalty Program Name -->
+                                        <Label Text="{Binding LoyaltyName}"
+                                               FontSize="9"
+                                               CharacterSpacing="1.5"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Primary}"
+                                               Margin="0,0,0,4" />
+
+                                        <!-- Item Name -->
+                                        <Label Text="{Binding ItemName}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Primary}"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="3" />
+
+                                        <!-- Qty Badge -->
+                                        <Border StrokeShape="RoundRectangle 8"
+                                                BackgroundColor="{Binding BadgeBgColor}"
+                                                StrokeThickness="0"
+                                                Padding="8,4"
+                                                HorizontalOptions="Start"
+                                                Margin="0,6,0,0">
+                                            <Label Text="{Binding QtyLabel}"
+                                                   FontSize="11"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{Binding BadgeTextColor}" />
+                                        </Border>
+
+                                        <!-- Divider -->
+                                        <BoxView HeightRequest="0.5"
+                                                 BackgroundColor="#25000000"
+                                                 Margin="0,10,0,8" />
+
+                                        <!-- Voucher -->
+                                        <HorizontalStackLayout Spacing="6" Margin="0,0,0,7">
+                                            <Label Text="🧾"
+                                                   FontSize="11"
+                                                   VerticalOptions="Center" />
+                                            <Label Text="{Binding VoucherLabel}"
+                                                   FontSize="11"
+                                                   TextColor="{StaticResource Tertiary}"
+                                                   VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+
+                                        <!-- Type tag + Branch -->
+                                        <HorizontalStackLayout Spacing="8">
+                                            <Border StrokeShape="RoundRectangle 8"
+                                                    BackgroundColor="{Binding TagBgColor}"
+                                                    StrokeThickness="0"
+                                                    Padding="8,4">
+                                                <Label Text="{Binding TypeTag}"
+                                                       FontSize="9"
+                                                       CharacterSpacing="1.5"
+                                                       FontAttributes="Bold"
+                                                       TextColor="{Binding TagTextColor}" />
+                                            </Border>
+                                            <Label Text="{Binding BranchName}"
+                                                   FontSize="11"
+                                                   VerticalOptions="Center"
+                                                   TextColor="{StaticResource Tertiary}"
+                                                   Opacity="0.75" />
+                                        </HorizontalStackLayout>
+
+                                    </VerticalStackLayout>
+
+                                    <!-- ── Right: Date + Time ── -->
+                                    <HorizontalStackLayout Grid.Column="1"
+                                                         HorizontalOptions="End"
+                                                         Spacing="1"
+                                                         MinimumWidthRequest="48">
+
+                                        <!-- Vertical gold divider -->
+                                        <BoxView WidthRequest="1"
+                                                 BackgroundColor="#40F4C542"
+                                                 Margin="0,0,8,8" />
+
+                                        <VerticalStackLayout VerticalOptions="Center">
+                                            <Label Text="{Binding DayStr}"
+                                               FontSize="22"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               TextColor="{StaticResource Primary}" />
+                                            <Label Text="{Binding MonthStr}"
+                                               FontSize="9"
+                                               CharacterSpacing="1.5"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               TextColor="{StaticResource Tertiary}" />
+                                            <Label Text="{Binding YearStr}"
+                                               FontSize="9"
+                                               CharacterSpacing="1.5"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Center"
+                                               TextColor="{StaticResource Tertiary}" />
+                                            <Label Text="{Binding TimeStr}"
+                                               FontSize="9"
+                                               HorizontalOptions="Center"
+                                               TextColor="{StaticResource Tertiary}"
+                                               Opacity="0.7"
+                                               Margin="0,4,0,0" />
+                                        </VerticalStackLayout>
+
+
+
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </Grid>
+        <!-- ── Busy overlay — dim + blur + spinner ── -->
+        <Grid IsVisible="{Binding IsLoading}" Grid.RowSpan="2"
+              InputTransparent="False">
+
+            <!-- Semi-transparent dark overlay -->
+            <BoxView BackgroundColor="#80000000"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill" />
+
+            <!-- Spinner card -->
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    Padding="32,28"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="200">
+                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       Color="{StaticResource Primary}"
+                                       HeightRequest="48"
+                                       WidthRequest="48"
+                                       HorizontalOptions="Center" />
+                    <Label Text="Please wait..."
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource LightText}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+    </Grid>
+</ContentPage>

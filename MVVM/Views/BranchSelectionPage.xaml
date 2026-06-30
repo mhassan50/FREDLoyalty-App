@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.BranchSelectionPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True">
+
+    <ContentPage.Background>
+        <SolidColorBrush Color="{StaticResource White}" />
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Image Source="polymathmenugridapp"
+                   Aspect="Fill"
+                   
+                   Grid.RowSpan="2"/>
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ROW 0 — Header (brown gradient)        -->
+        <!-- ═══════════════════════════════════════ -->
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource PrimarySecondary_90}"         Offset="0.0" />
+                    <GradientStop Color="{StaticResource PrimarySecondary_30}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid Padding="16,36,16,20"
+                  ColumnDefinitions="Auto,*">
+
+                <!-- Back Button -->
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#20FFFFFF"
+                        Stroke="#40616b46"
+                        StrokeThickness="1"
+                        Padding="10"
+                        VerticalOptions="Center">
+                    <Image Source="home"
+                           HeightRequest="22"
+                           WidthRequest="22"
+                           VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Title -->
+                <VerticalStackLayout Grid.Column="1"
+                                     HorizontalOptions="Center"
+                                     Spacing="3">
+                    <Label Text="SELECT BRANCH"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2.5"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                    <Label Text="Which location are you visiting?"
+                           FontSize="10"
+                           CharacterSpacing="2"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <!-- Gold shimmer line -->
+            <BoxView HeightRequest="2"
+                     VerticalOptions="End"
+                     Opacity="0.6" Color="{StaticResource Green500}" />
+
+
+        </Grid>
+
+
+        <!-- ── Header ── -->
+        <!--<Grid Grid.Row="0"
+              BackgroundColor="{StaticResource Primary}"
+              Padding="16,44,16,16"
+              ColumnDefinitions="Auto,*">
+
+            <Border Grid.Column="0"
+                    StrokeShape="RoundRectangle 12"
+                    BackgroundColor="#20FFFFFF"
+                    Stroke="#40FFFFFF"
+                    StrokeThickness="1"
+                    Padding="10"
+                    VerticalOptions="Center">
+                <Image Source="home.png"
+                       HeightRequest="20" WidthRequest="20" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1"
+                                 HorizontalOptions="Center"
+                                 Spacing="2">
+                <Label Text="SELECT BRANCH"
+                       FontSize="16" FontAttributes="Bold"
+                       CharacterSpacing="2"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource White}" />
+                <Label Text="Which location are you visiting?"
+                       FontSize="10" CharacterSpacing="1"
+                       HorizontalOptions="Center"
+                       TextColor="#CCFFFFFF" />
+            </VerticalStackLayout>
+
+        </Grid>-->
+
+        <!-- ── Branch List ── -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="BranchList"
+                                 Padding="16,20,16,36"
+                                 Spacing="12" />
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FREDLoyalty_App.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FREDLoyalty_App.MVVM.Views"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="True"
+    Shell.TabBarBackgroundColor="{StaticResource White}"
+    Shell.TabBarForegroundColor="{StaticResource Primary}"
+    Shell.TabBarTitleColor="{StaticResource Primary}"
+    Shell.TabBarUnselectedColor="{StaticResource Gray400}"
+    Title="FREDLoyalty_App">
+
+    <TabBar Route="Main">
+
+        <Tab Title="Home" Icon="homesvg">
+            <ShellContent Route="Home"
+                          ContentTemplate="{DataTemplate local:HomePage}" />
+        </Tab>
+
+        <Tab Title="My ID" Icon="qrcodesvg">
+            <ShellContent Route="QrTab"
+                          ContentTemplate="{DataTemplate local:QrLauncherPage}" />
+        </Tab>
+
+        <Tab Title="Menu" Icon="restauranticonsvg">
+            <ShellContent Route="MenuTab"
+                          ContentTemplate="{DataTemplate local:BranchSelectionMenuPage}" />
+        </Tab>
+
+        <Tab Title="More" Icon="menudots">
+            <ShellContent Route="More"
+                          ContentTemplate="{DataTemplate local:MorePage}" />
+        </Tab>
+
+    </TabBar>
+
+</Shell>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.DobPickerView"
+             IsVisible="False">
+
+    <Grid>
+        <!-- Dim background -->
+        <BoxView BackgroundColor="#80000000"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDismiss"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Bottom sheet -->
+        <Border StrokeShape="RoundRectangle 20,20,0,0"
+                BackgroundColor="{StaticResource White}"
+                StrokeThickness="0"
+                Padding="20,20"
+                VerticalOptions="End">
+
+            <VerticalStackLayout Spacing="14">
+
+                <Label Text="Select Date of Birth"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource Primary}"
+                       HorizontalOptions="Center"/>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="6">
+
+                    <!-- Day -->
+                    <VerticalStackLayout Grid.Column="0" Spacing="4">
+                        <Label Text="Day"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}"/>
+                        <CollectionView x:Name="DayCV"
+                                        HeightRequest="180"
+                                        SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="4,6">
+                                        <Border StrokeThickness="0"
+                                                Padding="8,6"
+                                                HorizontalOptions="Center"
+                                                MinimumWidthRequest="50"
+                                                BackgroundColor="{Binding BgColor}"
+                                                StrokeShape="RoundRectangle 20">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=DayTappedCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                            </Border.GestureRecognizers>
+                                            <Label Text="{Binding Value}"
+                                                   FontSize="{Binding FontSize}"
+                                                   FontAttributes="{Binding FontAttr}"
+                                                   TextColor="{Binding TextColor}"
+                                                   HorizontalOptions="Center"
+                                                   InputTransparent="True"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <!-- Month -->
+                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                        <Label Text="Month"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}"/>
+                        <CollectionView x:Name="MonthCV"
+                                        HeightRequest="180"
+                                        SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="4,6">
+                                        <Border StrokeThickness="0"
+                                                Padding="8,6"
+                                                HorizontalOptions="Center"
+                                                MinimumWidthRequest="50"
+                                                BackgroundColor="{Binding BgColor}"
+                                                StrokeShape="RoundRectangle 20">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=MonthTappedCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                            </Border.GestureRecognizers>
+                                            <Label Text="{Binding Value}"
+                                                   FontSize="{Binding FontSize}"
+                                                   FontAttributes="{Binding FontAttr}"
+                                                   TextColor="{Binding TextColor}"
+                                                   HorizontalOptions="Center"
+                                                   InputTransparent="True"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <!-- Year -->
+                    <VerticalStackLayout Grid.Column="2" Spacing="4">
+                        <Label Text="Year"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}"/>
+                        <CollectionView x:Name="YearCV"
+                                        HeightRequest="180"
+                                        SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="4,6">
+                                        <Border StrokeThickness="0"
+                                                Padding="8,6"
+                                                HorizontalOptions="Center"
+                                                MinimumWidthRequest="50"
+                                                BackgroundColor="{Binding BgColor}"
+                                                StrokeShape="RoundRectangle 20">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=YearTappedCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                            </Border.GestureRecognizers>
+                                            <Label Text="{Binding Value}"
+                                                   FontSize="{Binding FontSize}"
+                                                   FontAttributes="{Binding FontAttr}"
+                                                   TextColor="{Binding TextColor}"
+                                                   HorizontalOptions="Center"
+                                                   InputTransparent="True"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                </Grid>
+
+                <Button Text="Confirm"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        Clicked="OnConfirmed"/>
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentView>

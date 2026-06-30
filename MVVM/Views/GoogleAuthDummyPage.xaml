@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FREDLoyalty_App.MVVM.Views.GoogleAuthDummyPage"
+             BackgroundColor="#F5F5F5"
+             Shell.NavBarIsVisible="False">
+    
+    
+    <VerticalStackLayout Padding="30"
+                         Spacing="25"
+                         VerticalOptions="Center">
+
+        <!-- Google Logo -->
+        <Image Source="google.png"
+               HeightRequest="60"
+               HorizontalOptions="Center" />
+
+        <!-- Title -->
+        <Label Text="Sign in with Google"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#202124" />
+
+        <Entry x:Name="EmailEntry"
+               Placeholder="Email or phone"
+               BackgroundColor="#FFFFFF"
+               TextColor="#000000"
+               HeightRequest="50"
+               Margin="0,10,0,0"/>
+
+        <Entry x:Name="PasswordEntry"
+               Placeholder="Password"
+               IsPassword="True"
+               BackgroundColor="#FFFFFF"
+               TextColor="#000000"
+               HeightRequest="50"/>
+
+        <Button Text="Next"
+                Clicked="OnNextClicked"
+                BackgroundColor="#1A73E8"
+                TextColor="White"
+                CornerRadius="6"
+                HeightRequest="45"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>

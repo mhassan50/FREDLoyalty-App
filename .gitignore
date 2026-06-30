@@ -1,0 +1,10 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+.DS_Store
+
+.vs/
+
+Platforms/Android/google-services.json
