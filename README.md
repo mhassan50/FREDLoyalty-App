@@ -3,14 +3,14 @@
 A customer-facing loyalty app for **Polymath Coffee**, part of a multi-branch restaurant group — built with .NET MAUI for Android and iOS, backed by an ASP.NET Core Web API.
 
 📱 **Live on both stores:**
-- [Google Play Store](#) — published
+- [Google Play Store]([#](https://play.google.com/store/apps/details?id=com.fredthecompany.polymathcoffee)) — published
 - [Apple App Store](#) — published
 
 ## Screenshots
 
 | Home — Loyalty Card | Splash Screen | More Options |
 |---|---|---|
-| ![Home](screenshots/home.jpeg) | ![Splash](screenshots/splash.jpeg) | ![More](screenshots/more.jpeg) |
+| ![Home](home.jpeg) | ![Splash](splash.jpeg) | ![More](more.jpeg) |
 
 ## Features
 - Native Sign in with Google and Sign in with Apple (PKCE OAuth flow, no client secret on-device)
