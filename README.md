@@ -4,7 +4,7 @@ A customer-facing loyalty app for **Polymath Coffee**, part of a multi-branch re
 
 📱 **Live on both stores:**
 - [Google Play Store](https://play.google.com/store/apps/details?id=com.fredthecompany.polymathcoffee) — published
-- [Apple App Store](#) — published
+- [Apple App Store](https://apps.apple.com/pk/app/polymath-coffee/id6774607089) — published
 
 ## Screenshots
 
